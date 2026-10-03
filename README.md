@@ -115,6 +115,18 @@ git pull --ff-only
 python scripts/install.py -y
 ```
 
+## 提交规范
+
+本仓库及 Wava Work 创建的提交采用 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)，提交信息严格为单行：
+
+```text
+feat(install): support project-scoped skill installation
+fix(registry): reject conflicting skill names
+docs(readme): clarify installation targets
+```
+
+使用小写类型和英文祈使句；范围可省略。提交不包含正文或 trailers；破坏性变更使用 `type(scope)!: description`，并在同一行说明影响。合并采用符合规范的 squash 提交信息。历史重写需明确授权，并使用带预期远端 SHA 的 `--force-with-lease`。
+
 ## 验证
 
 在仓库根目录运行：
@@ -123,6 +135,7 @@ python scripts/install.py -y
 python skills/wava-work/scripts/validate_bundle.py skills/wava-work
 python skills/wava-work/scripts/bundle_registry.py --repo . verify
 python -m unittest discover -s tests -v
+python scripts/check_commits.py
 ```
 
 CI 执行结构、清单、脚本与导出检查。安装测试使用本地模拟，不等于已在所有客户端完成在线安装。`evals/cases.json` 定义行为评估场景与评分依据，不能视为已经通过的结果；成果质量和工作流效果需通过真实任务评估。

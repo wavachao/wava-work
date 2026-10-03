@@ -18,7 +18,9 @@
 
 ## Git与交付
 - 沿用已有提交姓名、邮箱、认证；Git identity不等于GitHub登录。缺失时询问或遵循平台本地设置流程，不猜邮箱、不改全局配置。
-- 仅提交任务相关文件；推送、PR、部署依授权，不强制推送或丢弃用户修改。
+- 提交信息采用Conventional Commits 1.0.0：`type(scope): description`，scope可省略；使用小写feat/fix/docs/refactor/perf/test/build/ci/chore/revert，英文祈使句简述实际变更。
+- 每个commit信息严格一行，不写正文、空行或trailers；破坏性变更用`type(scope)!: description`，在同一行说明影响。仅提交任务相关文件。
+- 推送、PR、部署依授权；历史重写仅在用户明确要求时进行，先记录旧HEAD，优先`git push --force-with-lease=<ref>:<旧SHA>`，不覆盖远端新增提交或丢弃用户修改。自动合并采用合规的单行squash信息。
 - 做与风险相称的测试、构建、实际运行检查；复杂行为保留最小有价值回归，纯格式/低影响改动不强制测试。不写镜像实现的测试。
 - 提供锁定依赖、必要配置、运行方法和样例；性能结论实际测量并注明环境。
 - 交付内容、运行方式、真实验证、剩余限制；研究尝试不包装成完成品。

@@ -1,0 +1,49 @@
+{
+  "old_head": "42ce6f2d093a790ab0c55ad770538d66f3aa3288",
+  "rewritten_head": "19ecbd1ef65da7ccd30d6deb3fd01ab27590dd2e",
+  "scope": "main only; six commits recreated through GitHub connector; original file trees preserved; connector generates new commit metadata and prior signatures cannot be retained",
+  "commits": [
+    {
+      "old": "934e65adefb977bd939ce6a40e1c5855d8df77a3",
+      "new": "dd6289c41f5a125ec79db7381f257d4becbcdd78",
+      "message": "chore(repo): initialize repository",
+      "old_signature_removed": true,
+      "tree": "ab399f66c15e6658f4a769944e9e1cd8b038fde2"
+    },
+    {
+      "old": "9f7e917e8f260c90a68f6dc7b74acb9ca30756aa",
+      "new": "306efe04c5d6ad57abe62e23e926f0b1a3e08c5f",
+      "message": "feat(skill): add modular Wava Work workflow",
+      "old_signature_removed": false,
+      "tree": "22db7ba1a318bb526738f28340b2fea21290f75f"
+    },
+    {
+      "old": "906477b354ac60e8ef741692e0f45e3cb910231a",
+      "new": "9d5cc9f96087bab87df1b2e5a29ccdc552f36390",
+      "message": "feat(bundle): include Ponytail core skill",
+      "old_signature_removed": false,
+      "tree": "414d8085b6fd41948db596befda9c2cbeea9bbb8"
+    },
+    {
+      "old": "288e9e54e7192ee1465f2f151221d56435c0edfd",
+      "new": "e97d57add6b5337c1ccf4533aab03bb5cf305ee5",
+      "message": "feat(skill): add registry and evidence-based evolution",
+      "old_signature_removed": false,
+      "tree": "ac670f14fbd924bb015febe5e19e9cc1459c8b97"
+    },
+    {
+      "old": "117d702d53672c2959c65fc9ad49b4609c3f3bca",
+      "new": "0164d08d8e4cb6a8f41d4d0410c38055ff9402b9",
+      "message": "feat(install): default Ponytail to latest upstream",
+      "old_signature_removed": false,
+      "tree": "e310d86857009e34da23b743cc802b52e419e1f6"
+    },
+    {
+      "old": "42ce6f2d093a790ab0c55ad770538d66f3aa3288",
+      "new": "19ecbd1ef65da7ccd30d6deb3fd01ab27590dd2e",
+      "message": "refactor(skill): deduplicate workflow and maintenance rules",
+      "old_signature_removed": false,
+      "tree": "556080160c74932f148df3807154a43de540967e"
+    }
+  ]
+}

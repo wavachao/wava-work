@@ -18,6 +18,7 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 | 任务/信号 | 读取文件 |
 |---|---|
 | 编写、修复、重构、运行项目代码 | [代码](references/code.md) |
+| 创建或修改Git提交 | [代码模块的Git与交付段](references/code.md) |
 | 网页、应用界面、交互原型 | [UI](references/ui.md)；实际写项目代码时同时读代码模块 |
 | Word、LaTeX、PDF、长文排版 | [文档](references/documents.md) |
 | 数据图、科学绘图、统计可视化 | [图表](references/charts.md) |
