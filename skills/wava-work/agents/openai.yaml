@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wava Work"
+  short_description: "按需组织代码与视觉任务，从验证过的经验持续改进工作流"
+  default_prompt: "使用 $wava-work 完成任务，按需选择工作流、调用相关技能并验证交付物。"

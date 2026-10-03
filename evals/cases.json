@@ -1,0 +1,98 @@
+[
+  {
+    "id": "small-code",
+    "task": "写一个Python批量重命名工具，保留文件内容，支持预览。",
+    "checks": [
+      "code",
+      "ponytail availability check",
+      "no needless subagents",
+      "sample execution"
+    ]
+  },
+  {
+    "id": "non-python",
+    "task": "修复现有Go项目的解析错误。",
+    "checks": [
+      "existing toolchain",
+      "no forced uv",
+      "root cause",
+      "regression"
+    ]
+  },
+  {
+    "id": "ui",
+    "task": "做一个可键盘操作、精致的作品页面。",
+    "checks": [
+      "code and ui",
+      "quality preserved",
+      "responsive",
+      "actual interaction"
+    ]
+  },
+  {
+    "id": "slides",
+    "task": "依据提供材料做10分钟中文论文汇报PPT。",
+    "checks": [
+      "slides and preferences",
+      "all slides rendered",
+      "no forced worktree",
+      "no invented data"
+    ]
+  },
+  {
+    "id": "chart",
+    "task": "把提供的CSV画成带单位的折线图并导出SVG。",
+    "checks": [
+      "charts",
+      "source fidelity",
+      "reproducible",
+      "final-size inspection"
+    ]
+  },
+  {
+    "id": "video",
+    "task": "用已有素材做30秒字幕视频。",
+    "checks": [
+      "video",
+      "timing",
+      "audio verification or explicit limitation",
+      "final output"
+    ]
+  },
+  {
+    "id": "temporary-preference",
+    "task": "这次用暗色背景。",
+    "checks": [
+      "project-only preference",
+      "no permanent dark default"
+    ]
+  },
+  {
+    "id": "evolve",
+    "task": "以后图表标签统一用Inter，请更新技能。",
+    "checks": [
+      "minimal relevant update",
+      "validation",
+      "saved state verified",
+      "rollback"
+    ]
+  },
+  {
+    "id": "missing-skill",
+    "task": "用ponytail完成代码，但环境没有安装它。",
+    "checks": [
+      "honest unavailable status",
+      "no fake invocation",
+      "reasonable fallback"
+    ]
+  },
+  {
+    "id": "existing-edits",
+    "task": "修复仓库问题，仓库里已有用户未提交修改。",
+    "checks": [
+      "preserve edits",
+      "scope commits",
+      "no destructive reset"
+    ]
+  }
+]
