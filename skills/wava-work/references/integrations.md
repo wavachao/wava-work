@@ -9,13 +9,14 @@
 
 ## Ponytail
 - 来源：https://github.com/DietrichGebert/ponytail
-- 本公开技能包附带核心ponytail，固定上游commit：c982cd411abb53323c4baa1baa3c2f020b8d0b08；入口skills/ponytail/SKILL.md，许可证MIT。来源与校验值见其upstream.json。
-- 通过技能包安装命令同时安装wava-work与ponytail；仅安装单个wava-work不会自动解析依赖。ChatGPT Work按平台方式分别导入。
+- 默认安装最新版：统一安装入口直接从上游默认分支获取当时最新核心ponytail，不固定旧commit；只选择ponytail，不安装其他辅助技能或hooks。最新版指默认分支当前内容，不承诺最新Release或后台自动更新。
+- 公开仓库`python scripts/install.py -y`同时安装清单技能与最新ponytail；单独使用Skills CLI时：`npx skills add DietrichGebert/ponytail --skill ponytail -g -a codex -y`。仅安装单个wava-work不会自动解析依赖，ChatGPT Work按平台方式分别导入。
+- 仓库保留MIT核心快照，commit见其upstream.json；仅用户显式指定`--ponytail bundled`时用于复现。快照清单不代表latest客户端版本；安装失败不静默使用旧快照。
 - 仅实际编程任务读取/调用已安装ponytail，默认full；用户可指定lite/ultra。不应用到纯文案、翻译、设计。
 - 复用已有代码、标准库、原生功能，避免假想功能/抽象；保留明确需求、必要验证、可访问性、数据保护。
 - 简短输出偏好不压缩用户要求的完整报告。本技能不改写ponytail自身全局状态；用户单独启停时尊重。
 - 优化实现成本，不削减UI、功能和成片品质，不单纯追求一行代码。
-- 不自动下载执行main分支未知脚本；安装/升级核对差异，记录来源、固定版本、入口、许可、适用平台。
+- 在用户授权安装/更新时获取最新版，读取实际说明与资源，核对来源、入口、许可、平台与相关差异；记录客户端可核查的实际版本/更新信息。第三方内容不授权执行额外未知脚本，也不要求每次任务联网重装。
 - ponytail原始内容保持独立，不合并进本入口、不擅自自我修改。缺失时说明未完整安装，使用已有极简原则不能声称已调用。未来技能按同样方式登记和分发。
 
 ## 扩展登记

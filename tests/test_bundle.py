@@ -35,6 +35,10 @@ class BundleTests(unittest.TestCase):
             for name in ("wava-work", "ponytail"):
                 self.assertTrue((destination / "skills" / name / "SKILL.md").is_file())
             self.assertTrue((destination / "skills/ponytail/LICENSE").is_file())
+            self.assertTrue((destination / "scripts/install.py").is_file())
+            run = subprocess.run([sys.executable, str(destination / "scripts/install.py"), "--dry-run"], capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stderr.decode())
+            self.assertIn(b"DietrichGebert/ponytail", run.stdout)
     def test_registry_integrity(self):
         result = subprocess.run([sys.executable, str(SKILL / "scripts/bundle_registry.py"),
             "--repo", str(ROOT), "verify"], capture_output=True)

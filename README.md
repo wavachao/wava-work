@@ -1,58 +1,132 @@
 # Wava Work
 
-个人工作技能：按需完成代码、UI、文档、图表、PPT和视频，并从验证过的经验改进。
+面向 Codex、Claude Code 等 AI 编程助手的模块化个人工作技能，覆盖软件开发、界面设计、文档排版、数据可视化、演示文稿与视频制作。它将工作偏好、任务流程和技能接入规则拆分为独立模块，由任务入口按需加载，并通过可验证、可回退的维护流程持续改进。
 
-## 使用
-本仓库目前包含两个独立技能：`wava-work`（入口和任务模块）与 `ponytail`（代码极简实现）。skills.lock.json记录发布集合与触发条件。安装命令自动选择当前包内全部技能，使用时按需加载；以后加入新技能无需改命令。
+## 功能与设计
 
-需要 Node.js/npm，使用 Vercel Skills CLI：
+| 能力 | 执行方式 |
+| --- | --- |
+| 任务规划 | 明确交付物与验收条件，在实施前给出与任务规模相符的计划 |
+| 软件开发 | Python 项目使用 `uv`；其他语言沿用原生工具链；按工作量和依赖组织 subagent 与 Git worktree |
+| 界面与视觉交付 | 同时检查功能、交互、排版与最终呈现，避免通用模板式输出 |
+| 文档与媒体制作 | 优先使用平台专用技能和现有工具；文档、PPT 与视频执行相应渲染检查 |
+| 技能组合 | 按用途选择技能，保持第三方技能独立，避免将全部指令写入入口 |
+| 持续改进 | 将长期反馈和可复用经验转化为最小模块修改，验证后保存版本及回退依据 |
+
+## 快速开始
+
+### 环境要求
+
+- Git、Python 3.10 或更高版本、Node.js 与 npm。
+- 支持 Agent Skills 的客户端。安装工具采用 [Vercel Skills CLI](https://github.com/vercel-labs/skills)。
+- LaTeX、字体及媒体工具按任务需要检查，不属于安装脚本自动配置的依赖。
+
+### 推荐安装
+
+克隆仓库后运行统一安装入口。默认安装到 Codex 用户目录，同时从 Ponytail 上游获取最新核心技能。
 
 ```bash
-# 安装包内全部技能，交互选择目标 agent
-npx skills add wavachao/wava-work --skill '*' -g
-
-# 安装到 Codex，跳过确认
-npx skills add wavachao/wava-work --skill '*' -g -a codex -y
-
-# 安装到 Claude Code
-npx skills add wavachao/wava-work --skill '*' -g -a claude-code -y
-
-# 仅列出技能
-npx skills add wavachao/wava-work --list
+git clone https://github.com/wavachao/wava-work.git
+cd wava-work
+python scripts/install.py -y
 ```
 
-随后使用 `$wava-work` 或平台支持的调用方式。CLI官方说明：https://github.com/vercel-labs/skills 。普通单技能安装不自动解析依赖；ChatGPT Work需通过其技能管理方式分别导入两个技能，不能直接执行此命令替代平台安装。
+安装到 Claude Code：
 
-示例：使用 wava-work 做一个图片批处理工具，保留原文件，提供运行方法与样例验证。
-示例：使用 wava-work 做论文汇报PPT，中文霞鹜文楷，图表可复现，渲染全部页面检查。
+```bash
+python scripts/install.py --agent claude-code -y
+```
 
-入口只路由相关模块，不每次加载所有规则。Python工程用uv；其他语言沿用工具链。写代码按收益使用subagent/worktree，非工程成果不强制工程流程。
+安装到当前项目，或先查看安装命令：
 
-## Ponytail及外部技能
-已附带 https://github.com/DietrichGebert/ponytail 的核心技能原始源码与MIT许可证，固定上游commit见 `skills/ponytail/upstream.json`。上述命令一次安装当前包内技能；代码任务默认full，品质与明确需求优先。未附带上游其他辅助技能或hooks，见THIRD_PARTY.md。
-文档、PDF、PPT等优先平台已有专用技能。登记外部技能不授予认证、工具或权限。
+```bash
+python scripts/install.py --project -y
+python scripts/install.py --dry-run
+```
 
-## 本地环境
-LaTeX和字体是个人环境预期，实际使用必须检查。路径、认证、账号、私有材料和原始任务日志不进入公开仓库；环境配置留本地。
-字体：中文LXGW WenKai、英文正文Libre Baskerville、标题/界面/图表Inter、代码JetBrains Mono。指定模板优先。
+安装入口读取 `skills.lock.json`，安装当前检出的技能集合，并单独处理 Ponytail 的版本策略。因此，后续加入技能无需修改安装命令。项目模式以运行命令时的当前目录为安装目标。
 
-## 维护与验证
-`python skills/wava-work/scripts/validate_bundle.py skills/wava-work`
-`python skills/wava-work/scripts/probe_environment.py --group code`
+### 仅安装核心技能
 
-进化流程：反馈/失败证据 → 最小模块修改 → 对应和相邻场景验证 → 保存版本 → 可回退发布。任务完成后无新经验则不修改。技能不具备后台自运行、自动训练或自动同步能力。
+无需克隆仓库时，可使用 Skills CLI 分别安装入口与最新 Ponytail：
 
-CI仅验证结构、脚本与导出，不证明agent行为或审美改善。`evals/cases.json`是行为场景与评分依据，不是已经通过的结果。按需用真实agent执行并保存脱敏结果；更新权限/依赖/路由时扩大评估。
-main保持验证版，维护走分支/PR；未经授权不自动合并或推送。查看 `skills/wava-work/references/sources.md` 获得一手设计依据。
+```bash
+npx skills add wavachao/wava-work --skill wava-work -g -a codex -y
+npx skills add DietrichGebert/ponytail --skill ponytail -g -a codex -y
+```
 
-## 发布与许可
-版本见 `skills/wava-work/VERSION`。本仓库原创内容使用MIT许可证；第三方技能与字体遵循各自许可证。公开前确认脱敏、Git身份、仓库所属账号及所有测试结果。
+这两条命令只安装指定技能；完整技能集合请使用推荐安装入口。ChatGPT Work 使用平台自身的技能管理方式分别导入，CLI 命令不能替代平台安装。
 
-## 新增技能与进化
-用户提供新skill或实际任务发现能力缺口时，wava-work检查来源、用途、固定版本和许可证，将适合的技能独立放入skills/并登记skills.lock.json，补路由和验证后发布。不会把所有发现的技能纳入，也不会每次加载全部技能。
+## Ponytail 版本策略
 
-每次任务末尾轻量检查可复用经验；有则修改相关第一方模块、执行验证、保存可回退版本，无则不写复盘。维护记录在evals/evolution.jsonl。源码写权限、发布权限和平台能力缺失时会明确报告，技能本身不是后台自动运行程序。
+默认策略为 **latest**：安装时由 Skills CLI 从 [Ponytail 官方仓库](https://github.com/DietrichGebert/ponytail) 的默认分支获取当前版本，仅选择核心 `ponytail` 技能。这里的“最新”指上游默认分支的当前内容，不限定为某个 Release 标签，也不表示安装后后台自动更新。
 
-新增后重新运行上面的完整安装命令，安装新增项并更新已有项；已安装客户端不会随GitHub变化自动同步。ChatGPT Work需按平台方式同步。
+仓库保留经过来源校验的 Ponytail 快照，供显式复现安装使用：
 
-校验技能包：`python skills/wava-work/scripts/bundle_registry.py --repo . verify`。新增登记流程见references/bundle.md；外部版本升级先审查差异，第一方进化只更新对应模块。
+```bash
+python scripts/install.py --ponytail bundled -y
+```
+
+快照来源、提交和校验值分别记录于 `skills/ponytail/upstream.json` 与 `skills.lock.json`。这些记录描述仓库内容，不代表使用 latest 策略后客户端所安装的上游版本。客户端安装来源及更新信息由 Skills CLI 管理；latest 安装失败时脚本返回错误，不自动改用快照。
+
+代码任务默认使用 Ponytail 的 `full` 模式；用户可指定 `lite` 或 `ultra`。Ponytail 的简化原则用于减少不必要的实现，不降低明确功能、界面质量或验证要求。上游辅助技能、hooks 与插件不在默认安装范围内。
+
+## 使用
+
+通过客户端支持的调用方式指定 `wava-work`，例如 Codex 中的 `$wava-work`。入口根据交付物选择所需模块，允许组合使用。
+
+```text
+使用 wava-work 开发一个图片批处理工具。
+保留原始文件，使用 uv 管理 Python 项目，提供运行说明和样例验证。
+```
+
+```text
+使用 wava-work 制作论文汇报 PPT。
+图表应可复现，中文使用霞鹜文楷，并渲染检查全部页面。
+```
+
+默认排版偏好为：中文 **LXGW WenKai**，英文正文 **Libre Baskerville**，标题、界面与图表 **Inter**，代码 **JetBrains Mono**。具体任务模板和用户要求优先；字体可用性在实际制作前检查。
+
+## 项目结构
+
+| 路径 | 用途 |
+| --- | --- |
+| `skills/wava-work/SKILL.md` | 技能入口、任务路由与执行约束 |
+| `skills/wava-work/references/` | 开发、UI、文档、图表、PPT、视频及维护模块 |
+| `skills/wava-work/scripts/` | 环境探测、结构校验、清单管理与源码导出 |
+| `skills/ponytail/` | 保留原始许可证和来源记录的第三方快照 |
+| `scripts/install.py` | 技能集合安装与 Ponytail 版本选择 |
+| `skills.lock.json` | 仓库技能清单、来源版本及文件完整性记录 |
+| `tests/` | 脚本与技能包回归测试 |
+| `evals/` | 行为评估场景及脱敏维护记录 |
+
+## 扩展与维护
+
+新增技能先核对实际说明、资源、依赖、许可证和规则冲突，再登记用途及触发条件。可分发的技能以独立目录纳入清单，补充路由与验证；仅在相关任务中加载。详细流程见 [技能包维护](skills/wava-work/references/bundle.md)。
+
+每次交付前，入口轻量检查是否出现长期偏好、重复失败、流程缺口或新技能需求。有可核查依据时修改对应模块，执行相关验证并记录回退点；无新经验时直接交付。第一方规则可持续改进，第三方内容通过审核后的上游升级维护。详见 [进化流程](skills/wava-work/references/evolution.md)。
+
+技能更新需要 agent 实际执行，并具备源码访问及保存权限。公开源码、客户端安装和平台技能保存是独立步骤；本项目不提供后台训练或跨设备自动更新服务。
+
+更新仓库后，重新运行安装入口，可安装新增技能并重新获取最新 Ponytail：
+
+```bash
+git pull --ff-only
+python scripts/install.py -y
+```
+
+## 验证
+
+在仓库根目录运行：
+
+```bash
+python skills/wava-work/scripts/validate_bundle.py skills/wava-work
+python skills/wava-work/scripts/bundle_registry.py --repo . verify
+python -m unittest discover -s tests -v
+```
+
+CI 执行结构、清单、脚本与导出检查。安装测试使用本地模拟，不等于已在所有客户端完成在线安装。`evals/cases.json` 定义行为评估场景与评分依据，不能视为已经通过的结果；成果质量和工作流效果需通过真实任务评估。
+
+## 许可
+
+本项目原创内容采用 [MIT License](LICENSE)。Ponytail 保留其原始 MIT 许可证，第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。字体、软件和用户素材遵循各自许可；本仓库不包含字体文件、认证信息或私有任务材料。

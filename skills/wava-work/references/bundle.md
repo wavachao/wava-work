@@ -2,12 +2,13 @@
 
 ## 来源与安装
 - 公共源码：https://github.com/wavachao/wava-work 。维护前读取最新版本；使用已授权的GitHub连接或本地checkout，不假定安装目录就是源码仓库。
-- 仓库skills.lock.json是包清单，skills/<name>是可独立安装的技能；清单记录role、when、来源、固定commit、许可证、文件校验值。
-- 多技能安装与按需加载分开。用下列命令安装当前包内全部技能到指定agent，后续新增无需更改命令：
-  `npx skills add wavachao/wava-work --skill '*' -g -a codex -y`
-- Claude Code把codex换成claude-code；不要默认--all，它还会影响所有agent。
-- 增加新技能后重新运行完整安装命令；普通update只更新已安装项，不能据此保证新增技能已安装。
-- ChatGPT Work按其技能管理方式分别安装。仓库修改不等于所有客户端已同步，不伪报本地安装状态。
+- 仓库skills.lock.json是包清单，skills/<name>是可独立安装的技能；清单记录role、when、来源、快照固定commit、许可证、文件校验值；可另记安装策略，快照锁定与客户端latest安装分开。
+- 默认使用仓库统一安装入口：`python scripts/install.py -y`。读取当前清单安装技能集合，但排除Ponytail快照，另从官方上游默认分支安装当时最新的核心ponytail。
+- 默认目标codex、用户范围；Claude Code加`--agent claude-code`，项目范围加`--project`。安装入口位于公开源码仓库，不假定已安装技能目录包含它。
+- Ponytail的latest策略不固定上游commit；仓库清单的固定commit与哈希仅描述保留的快照。用户指定复现时用`--ponytail bundled`；不得用快照冒充最新或在失败后静默降级。
+- 增加新技能后更新源码checkout并重新运行完整安装入口；普通update只更新已安装项，不能据此保证新增技能已安装。不要默认--all，它还会影响所有agent。
+- 不把一次安装视为后台持续更新。核对客户端实际安装状态与来源；上游内容需要按正常技能接入流程阅读，不因latest策略扩大授权。
+- ChatGPT Work按其技能管理方式分别安装。仓库修改不等于所有客户端已更新，不伪报本地安装状态。
 
 ## 新增技能流程
 1. 用户提供链接或出现真实能力缺口时发现候选；不因发现新skill就全部纳入。
