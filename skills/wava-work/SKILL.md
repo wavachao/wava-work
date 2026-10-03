@@ -40,4 +40,4 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 ## 维护工具
 - 按需探测：`python scripts/probe_environment.py --group code`，可重复group（code/ui/documents/charts/slides/video）。
 - 包校验：`python scripts/validate_bundle.py <技能目录>`，只检查格式、引用、资源，不代表行为评估。
-- 导出公开源码：`python scripts/export_repository.py --skill-root <技能目录> --destination <新目录>`，不自动推送或安装外部技能。
+- 导出公开源码：`python scripts/export_repository.py --skill-root <技能目录> --destination <新目录> --ponytail-root <ponytail目录>`，不自动推送或安装外部技能。

@@ -9,13 +9,14 @@
 
 ## Ponytail
 - 来源：https://github.com/DietrichGebert/ponytail
-- 核对入口：skills/ponytail/SKILL.md，日期2026-10-03。日期不是版本锁；实际安装需记录commit/tag和平台。
+- 本公开技能包附带核心ponytail，固定上游commit：c982cd411abb53323c4baa1baa3c2f020b8d0b08；入口skills/ponytail/SKILL.md，许可证MIT。来源与校验值见其upstream.json。
+- 通过技能包安装命令同时安装wava-work与ponytail；仅安装单个wava-work不会自动解析依赖。ChatGPT Work按平台方式分别导入。
 - 仅实际编程任务读取/调用已安装ponytail，默认full；用户可指定lite/ultra。不应用到纯文案、翻译、设计。
 - 复用已有代码、标准库、原生功能，避免假想功能/抽象；保留明确需求、必要验证、可访问性、数据保护。
 - 简短输出偏好不压缩用户要求的完整报告。本技能不改写ponytail自身全局状态；用户单独启停时尊重。
 - 优化实现成本，不削减UI、功能和成片品质，不单纯追求一行代码。
 - 不自动下载执行main分支未知脚本；安装/升级核对差异，记录来源、固定版本、入口、许可、适用平台。
-- 本包不复制或发布ponytail源码；缺失时只能使用本包已有极简原则，不能声称已调用ponytail。
+- ponytail原始内容保持独立，不合并进本入口、不擅自自我修改。缺失时说明未完整安装，使用已有极简原则不能声称已调用。未来技能按同样方式登记和分发。
 
 ## 扩展登记
 新技能登记名称、来源、固定版本、用途/触发、平台、权限、能力、冲突、替代、许可、验证日期。

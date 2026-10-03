@@ -3,7 +3,25 @@
 个人工作技能：按需完成代码、UI、文档、图表、PPT和视频，并从验证过的经验改进。
 
 ## 使用
-把 `skills/wava-work` 安装到你的 agent 平台支持的个人技能位置，再使用该平台的技能调用方式，例如 `$wava-work`。各平台的发现、安装和工具权限不同；本仓库不提供自动跨平台安装。
+本仓库包含两个独立技能：`wava-work`（入口和任务模块）与 `ponytail`（代码极简实现）。安装技能包时一起安装两者，使用时按需加载。
+
+需要 Node.js/npm，使用 Vercel Skills CLI：
+
+```bash
+# 安装两个技能，交互选择目标 agent
+npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g
+
+# 安装到 Codex，跳过确认
+npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g -a codex -y
+
+# 安装到 Claude Code
+npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g -a claude-code -y
+
+# 仅列出技能
+npx skills add wavachao/wava-work --list
+```
+
+随后使用 `$wava-work` 或平台支持的调用方式。CLI官方说明：https://github.com/vercel-labs/skills 。普通单技能安装不自动解析依赖；ChatGPT Work需通过其技能管理方式分别导入两个技能，不能直接执行此命令替代平台安装。
 
 示例：使用 wava-work 做一个图片批处理工具，保留原文件，提供运行方法与样例验证。
 示例：使用 wava-work 做论文汇报PPT，中文霞鹜文楷，图表可复现，渲染全部页面检查。
@@ -11,7 +29,7 @@
 入口只路由相关模块，不每次加载所有规则。Python工程用uv；其他语言沿用工具链。写代码按收益使用subagent/worktree，非工程成果不强制工程流程。
 
 ## Ponytail及外部技能
-可选接入 https://github.com/DietrichGebert/ponytail ，不包含其源码，也不自动安装。代码任务默认使用可用的full模式；品质和明确需求优先。真实安装时记录commit/tag；本包仅核对上游入口，不把日期当固定版本。
+已附带 https://github.com/DietrichGebert/ponytail 的核心技能原始源码与MIT许可证，固定上游commit见 `skills/ponytail/upstream.json`。上述命令一次安装两个技能；代码任务默认full，品质与明确需求优先。未附带上游其他辅助技能或hooks，见THIRD_PARTY.md。
 文档、PDF、PPT等优先平台已有专用技能。登记外部技能不授予认证、工具或权限。
 
 ## 本地环境
