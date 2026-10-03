@@ -12,7 +12,7 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 4. 复用现有实现、软件与素材；独立且足够大的工作才并行。保持用户现有修改。
 5. 验证最终交付物，修复发现的问题；区分已验证、未验证和未完成。
 6. 汇报成果位置、使用方式、实际验证与必要限制；自然具体，避免流水账。
-7. 仅有可复用的新反馈或失败经验时读取进化模块，无新经验不更新。
+7. 每次交付前轻量检查是否有长期反馈、重复失败、流程缺口或新技能需求；有则读取进化模块并在权限内落实最小更新，无则不生成复盘或修改。
 
 ## 按需路由
 | 任务/信号 | 读取文件 |
@@ -26,6 +26,7 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 | 排版、文案或视觉成果 | [偏好](references/preferences.md) |
 | 调用ponytail、专用技能、接入新技能 | [技能接入](references/integrations.md) |
 | 长期偏好变化、可复用错误、要求改进技能 | [进化](references/evolution.md) |
+| 新增技能、维护技能包、安装同步 | [技能包](references/bundle.md) |
 | 扩展技能、核对设计依据 | [来源](references/sources.md) |
 
 允许组合模块。按交付物判断，不因Python生成PPT就默认创建工程仓库或worktree。
@@ -40,4 +41,6 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 ## 维护工具
 - 按需探测：`python scripts/probe_environment.py --group code`，可重复group（code/ui/documents/charts/slides/video）。
 - 包校验：`python scripts/validate_bundle.py <技能目录>`，只检查格式、引用、资源，不代表行为评估。
-- 导出公开源码：`python scripts/export_repository.py --skill-root <技能目录> --destination <新目录> --ponytail-root <ponytail目录>`，不自动推送或安装外部技能。
+- 导出公开源码：`python scripts/export_repository.py --skill-root <技能目录> --destination <新目录> --repo-root <源码仓库>`，不自动推送或安装外部技能。
+
+- 技能包清单与完整性：`python scripts/bundle_registry.py --repo <源码仓库> verify`；新增技能读取技能包模块。

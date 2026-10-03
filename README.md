@@ -3,19 +3,19 @@
 个人工作技能：按需完成代码、UI、文档、图表、PPT和视频，并从验证过的经验改进。
 
 ## 使用
-本仓库包含两个独立技能：`wava-work`（入口和任务模块）与 `ponytail`（代码极简实现）。安装技能包时一起安装两者，使用时按需加载。
+本仓库目前包含两个独立技能：`wava-work`（入口和任务模块）与 `ponytail`（代码极简实现）。skills.lock.json记录发布集合与触发条件。安装命令自动选择当前包内全部技能，使用时按需加载；以后加入新技能无需改命令。
 
 需要 Node.js/npm，使用 Vercel Skills CLI：
 
 ```bash
-# 安装两个技能，交互选择目标 agent
-npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g
+# 安装包内全部技能，交互选择目标 agent
+npx skills add wavachao/wava-work --skill '*' -g
 
 # 安装到 Codex，跳过确认
-npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g -a codex -y
+npx skills add wavachao/wava-work --skill '*' -g -a codex -y
 
 # 安装到 Claude Code
-npx skills add wavachao/wava-work --skill wava-work --skill ponytail -g -a claude-code -y
+npx skills add wavachao/wava-work --skill '*' -g -a claude-code -y
 
 # 仅列出技能
 npx skills add wavachao/wava-work --list
@@ -29,7 +29,7 @@ npx skills add wavachao/wava-work --list
 入口只路由相关模块，不每次加载所有规则。Python工程用uv；其他语言沿用工具链。写代码按收益使用subagent/worktree，非工程成果不强制工程流程。
 
 ## Ponytail及外部技能
-已附带 https://github.com/DietrichGebert/ponytail 的核心技能原始源码与MIT许可证，固定上游commit见 `skills/ponytail/upstream.json`。上述命令一次安装两个技能；代码任务默认full，品质与明确需求优先。未附带上游其他辅助技能或hooks，见THIRD_PARTY.md。
+已附带 https://github.com/DietrichGebert/ponytail 的核心技能原始源码与MIT许可证，固定上游commit见 `skills/ponytail/upstream.json`。上述命令一次安装当前包内技能；代码任务默认full，品质与明确需求优先。未附带上游其他辅助技能或hooks，见THIRD_PARTY.md。
 文档、PDF、PPT等优先平台已有专用技能。登记外部技能不授予认证、工具或权限。
 
 ## 本地环境
@@ -47,3 +47,12 @@ main保持验证版，维护走分支/PR；未经授权不自动合并或推送�
 
 ## 发布与许可
 版本见 `skills/wava-work/VERSION`。本仓库原创内容使用MIT许可证；第三方技能与字体遵循各自许可证。公开前确认脱敏、Git身份、仓库所属账号及所有测试结果。
+
+## 新增技能与进化
+用户提供新skill或实际任务发现能力缺口时，wava-work检查来源、用途、固定版本和许可证，将适合的技能独立放入skills/并登记skills.lock.json，补路由和验证后发布。不会把所有发现的技能纳入，也不会每次加载全部技能。
+
+每次任务末尾轻量检查可复用经验；有则修改相关第一方模块、执行验证、保存可回退版本，无则不写复盘。维护记录在evals/evolution.jsonl。源码写权限、发布权限和平台能力缺失时会明确报告，技能本身不是后台自动运行程序。
+
+新增后重新运行上面的完整安装命令，安装新增项并更新已有项；已安装客户端不会随GitHub变化自动同步。ChatGPT Work需按平台方式同步。
+
+校验技能包：`python skills/wava-work/scripts/bundle_registry.py --repo . verify`。新增登记流程见references/bundle.md；外部版本升级先审查差异，第一方进化只更新对应模块。

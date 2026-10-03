@@ -8,4 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - run: python3 skills/wava-work/scripts/validate_bundle.py skills/wava-work
+      - run: python3 skills/wava-work/scripts/bundle_registry.py --repo . verify
       - run: python3 -m unittest discover -s tests -v

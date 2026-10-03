@@ -35,6 +35,48 @@ class BundleTests(unittest.TestCase):
             for name in ("wava-work", "ponytail"):
                 self.assertTrue((destination / "skills" / name / "SKILL.md").is_file())
             self.assertTrue((destination / "skills/ponytail/LICENSE").is_file())
+    def test_registry_integrity(self):
+        result = subprocess.run([sys.executable, str(SKILL / "scripts/bundle_registry.py"),
+            "--repo", str(ROOT), "verify"], capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stdout.decode())
+    def test_tampered_vendor_detected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            copy = Path(tmp) / "repo"
+            shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns("__pycache__", ".git"))
+            with (copy / "skills/ponytail/SKILL.md").open("a") as file:
+                file.write("tampered")
+            result = subprocess.run([sys.executable, str(copy / "skills/wava-work/scripts/bundle_registry.py"),
+                "--repo", str(copy), "verify"], capture_output=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("integrity mismatch", result.stdout.decode())
+    def test_new_skill_registered_and_exported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            copy = Path(tmp) / "repo"
+            shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns("__pycache__", ".git"))
+            fixture = copy / "skills/animation-fixture"
+            fixture.mkdir()
+            (fixture / "SKILL.md").write_text("---\nname: animation-fixture\ndescription: Synthetic test fixture\n---\nTest only.\n")
+            (fixture / "LICENSE").write_text("Synthetic test license")
+            command = [sys.executable, str(copy / "skills/wava-work/scripts/bundle_registry.py"),
+                "--repo", str(copy)]
+            register = command + ["register", "--name", "animation-fixture", "--role", "video",
+                "--when", "animation fixture", "--source-url", "https://example.invalid/fixture",
+                "--source-ref", "a" * 40, "--license", "Synthetic"]
+            result = subprocess.run(register, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr.decode())
+            names = subprocess.run(command + ["list"], capture_output=True, text=True)
+            self.assertIn("animation-fixture", names.stdout.splitlines())
+            repeated = subprocess.run(register, capture_output=True)
+            self.assertNotEqual(repeated.returncode, 0)
+            output = Path(tmp) / "output"
+            result = subprocess.run([sys.executable, str(copy / "skills/wava-work/scripts/export_repository.py"),
+                "--skill-root", str(copy / "skills/wava-work"), "--destination", str(output)], capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr.decode())
+            self.assertTrue((output / "skills/animation-fixture/SKILL.md").is_file())
+    def test_vendor_refresh_refused(self):
+        result = subprocess.run([sys.executable, str(SKILL / "scripts/bundle_registry.py"),
+            "--repo", str(ROOT), "refresh", "--name", "ponytail"], capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
     def test_missing_module_detected(self):
         with tempfile.TemporaryDirectory() as tmp:
             copy = Path(tmp) / "skill"
