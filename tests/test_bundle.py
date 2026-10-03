@@ -15,6 +15,17 @@ validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)
 
 class BundleTests(unittest.TestCase):
+    def test_nested_digest_paths_are_portable(self):
+        spec = importlib.util.spec_from_file_location("registry", SKILL / "scripts/bundle_registry.py")
+        registry = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(registry)
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / "nested").mkdir()
+            (folder / "nested/guide.md").write_bytes(b"portable\n")
+            self.assertEqual(registry.files_digest(folder), {
+                "nested/guide.md": hashlib.sha256(b"portable\n").hexdigest()})
+
     def test_bundle(self):
         self.assertEqual(validator.validate(SKILL), [])
     def test_vendored_ponytail_integrity(self):

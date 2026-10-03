@@ -26,11 +26,11 @@
 
 ### 推荐安装
 
-稳定版与更新说明见 [GitHub Releases](https://github.com/wavachao/wava-work/releases/latest)。以下示例固定 Wava Work v0.4.3，默认安装到 Codex 用户目录，同时从 Ponytail 上游获取最新核心技能。
+稳定版与更新说明见 [GitHub Releases](https://github.com/wavachao/wava-work/releases/latest)。以下示例固定 Wava Work v0.6.0，默认安装到 Codex 用户目录，同时从 Ponytail 上游获取最新核心技能。
 
 ```bash
-git clone --branch v0.4.3 --depth 1 https://github.com/wavachao/wava-work.git wava-work-v0.4.3
-cd wava-work-v0.4.3
+git clone --branch v0.6.0 --depth 1 https://github.com/wavachao/wava-work.git wava-work-v0.6.0
+cd wava-work-v0.6.0
 python scripts/install.py -y
 ```
 
@@ -116,7 +116,7 @@ python scripts/install.py --ponytail bundled -y
 
 ```bash
 git fetch --tags origin
-git switch --detach v0.4.3  # 换成目标 Release 的 tag
+git switch --detach v0.6.0  # 换成目标 Release 的 tag
 python scripts/install.py -y
 ```
 
@@ -124,7 +124,7 @@ python scripts/install.py -y
 
 ## 稳定发布
 
-VERSION、Git tag 与 Release 一致，例如 `0.4.3` / `v0.4.3` / `Wava Work v0.4.3`。发布说明存放于 `releases/`，说明变化、兼容性、验证范围和安装/回退方法。已发布 tag 和内容保持不变；修正使用新版本。
+VERSION、Git tag 与 Release 一致，例如 `0.6.0` / `v0.6.0` / `Wava Work v0.6.0`。发布说明存放于 `releases/`，说明变化、兼容性、验证范围和安装/回退方法。已发布 tag 和内容保持不变；修正使用新版本。
 
 更新 VERSION、清单及发布说明并推送到 main 后，发布工作流执行校验，通过后创建附注 tag 和 GitHub Release；支持在 Actions 手动重跑。只有确认 Release 已公开且 tag 指向正确提交，才报告发布完成。默认最新 Ponytail 与固定 Wava Work 版本独立管理。
 

@@ -11,8 +11,8 @@ def files_digest(folder):
         if path.is_symlink():
             raise ValueError('Symlinks are not accepted in bundled skills')
         if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
-            result[str(path.relative_to(folder))] = hashlib.sha256(path.read_bytes()).hexdigest()
-    return result
+            result[path.relative_to(folder).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return dict(sorted(result.items()))
 
 def read_registry(repo):
     data = json.loads((repo / 'skills.lock.json').read_text())
