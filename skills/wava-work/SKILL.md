@@ -24,10 +24,10 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 | 演示文稿、PPT、汇报 | [演示](references/slides.md) |
 | 视频、动画、字幕、音频剪辑 | [视频](references/video.md) |
 | 排版、文案或视觉成果 | [偏好](references/preferences.md) |
-| 调用ponytail、专用技能、接入新技能 | [技能接入](references/integrations.md) |
+| 选择或调用ponytail与专用技能 | [技能接入](references/integrations.md) |
 | 长期偏好变化、可复用错误、要求改进技能 | [进化](references/evolution.md) |
 | 新增技能、维护技能包、安装同步 | [技能包](references/bundle.md) |
-| 扩展技能、核对设计依据 | [来源](references/sources.md) |
+| 核对技能设计依据 | [来源](references/sources.md) |
 
 允许组合模块。按交付物判断，不因Python生成PPT就默认创建工程仓库或worktree。
 
@@ -38,9 +38,6 @@ description: 按个人工作习惯完成项目代码、UI、文档、图表、PP
 - 不把认证、私有路径、原始对话或项目机密纳入公开技能。
 - 工具/技能缺失时如实说明，尽量继续；不得伪报已调用或已完成。
 
-## 维护工具
-- 按需探测：`python scripts/probe_environment.py --group code`，可重复group（code/ui/documents/charts/slides/video）。
-- 包校验：`python scripts/validate_bundle.py <技能目录>`，只检查格式、引用、资源，不代表行为评估。
-- 导出公开源码：`python scripts/export_repository.py --skill-root <技能目录> --destination <新目录> --repo-root <源码仓库>`，不自动推送或安装外部技能。
-
-- 技能包清单与完整性：`python scripts/bundle_registry.py --repo <源码仓库> verify`；新增技能读取技能包模块。
+## 工具入口
+- 按需探测环境：`python scripts/probe_environment.py --group code`，group可选code/ui/documents/charts/slides/video。
+- 校验、导出、安装和发布命令集中在技能包模块，仅维护任务读取。

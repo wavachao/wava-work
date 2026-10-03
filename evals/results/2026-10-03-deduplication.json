@@ -1,0 +1,148 @@
+{
+  "id": "2026-10-03-rule-deduplication",
+  "version": "0.4.1",
+  "task": "Python CLI按CSV old,new两列重命名目录内普通文件，默认预览，--apply执行，拒绝路径穿越/重复目标/现有目标冲突，先完整预检，不支持交换名称。提供运行方法与成功及冲突验证。",
+  "setup": {
+    "variants": [
+      "without wava-work",
+      "wava-work v0.4.0",
+      "wava-work v0.4.1"
+    ],
+    "independent_agents": 3,
+    "runs_per_variant": 1,
+    "network_installation": false,
+    "assessment": "对最终产物执行同一组独立验收；没有修改生成工具以通过验收。"
+  },
+  "results": {
+    "without": {
+      "source_sha256": "25c277f5d1a7ca33eb92142b6f7b7ab2cf4e5f97d35cdc0315a84c4acc730aef",
+      "source_lines": 86,
+      "checks": [
+        {
+          "case": "preview",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "apply",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "late_conflict",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_target",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "traversal",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "missing_source",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_source",
+          "passed": true,
+          "exit_code": 1
+        }
+      ]
+    },
+    "v040": {
+      "source_sha256": "d04562a54a91c92c3757dbb7dc1efa6e696e62e55d414d8ad8de0e9f3efb59d9",
+      "source_lines": 94,
+      "checks": [
+        {
+          "case": "preview",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "apply",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "late_conflict",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_target",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "traversal",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "missing_source",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_source",
+          "passed": true,
+          "exit_code": 1
+        }
+      ]
+    },
+    "v041": {
+      "source_sha256": "2402d9fa1e195d174ae8ecf9317878b7e48a93994606fa116c6ff6bdc0fb1ff6",
+      "source_lines": 92,
+      "checks": [
+        {
+          "case": "preview",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "apply",
+          "passed": true,
+          "exit_code": 0
+        },
+        {
+          "case": "late_conflict",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_target",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "traversal",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "missing_source",
+          "passed": true,
+          "exit_code": 1
+        },
+        {
+          "case": "duplicate_source",
+          "passed": true,
+          "exit_code": 1
+        }
+      ]
+    }
+  },
+  "interpretation": "三组各7项验收全部通过，未观察到精简版退步，也未证明技能提升正确性。技能组使用uv项目配置，无技能组仅标准库脚本。",
+  "limitations": [
+    "单任务、每组一次，存在模型采样差异，不具统计意义",
+    "未比较UI/PPT质量、模型token费用或严格计时",
+    "不评估断电/进程中断/并发修改时批次原子性",
+    "生成工具为临时实验产物；记录任务、结果与源码哈希，不将其当项目交付"
+  ]
+}

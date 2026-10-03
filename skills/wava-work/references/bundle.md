@@ -8,7 +8,7 @@
 - Ponytail的latest策略不固定上游commit；仓库清单的固定commit与哈希仅描述保留的快照。用户指定复现时用`--ponytail bundled`；不得用快照冒充最新或在失败后静默降级。
 - 增加新技能后更新源码checkout并重新运行完整安装入口；普通update只更新已安装项，不能据此保证新增技能已安装。不要默认--all，它还会影响所有agent。
 - 不把一次安装视为后台持续更新。核对客户端实际安装状态与来源；上游内容需要按正常技能接入流程阅读，不因latest策略扩大授权。
-- ChatGPT Work按其技能管理方式分别安装。仓库修改不等于所有客户端已更新，不伪报本地安装状态。
+- 安装前确认目标是本机、云端还是平台工作区，并检查是否能访问该目标。ChatGPT Work按平台方式分别安装；只报告已实际核对的路径与状态，不把云端/平台保存说成本机安装。
 
 ## 新增技能流程
 1. 用户提供链接或出现真实能力缺口时发现候选；不因发现新skill就全部纳入。
@@ -19,11 +19,15 @@
    `python skills/wava-work/scripts/bundle_registry.py --repo . register --name <name> --role <用途> --when <触发条件> --source-url <仓库URL> --source-ref <完整commit> --license <许可证>`
 6. 补充相关接入说明与一个真实/独立工作流场景，避免所有技能默认加载。清单不是可执行授权；agent只读取与任务相关项的说明。
 7. 核对来源真实性和许可证；registry只检查文件与登记的一致性，不证明上游可信或许可证允许再分发。
-8. 更新本技能VERSION，在评估记录写脱敏证据与验证，刷新第一方校验值：
-   `python skills/wava-work/scripts/bundle_registry.py --repo . refresh --name wava-work`
-9. 跑verify、结构校验和相关测试，按已有授权保存/发布，确认远端与客户端状态。
+8. 补充相关任务评估并执行下列保存检查；第一方规则如何采纳与回退见进化模块。
 
 ## 更新与删除
 - 第三方更新要比较固定版本间差异，审核后更新来源和哈希；不要盲目刷新第三方哈希来掩盖变更。
 - 用户明确要求删除或长期无效时移除对应目录、清单和路由；保留Git回退记录。不要顺带卸载用户单独管理的技能。
 - 新技能默认进入当前技能包安装集合；若是实验或外部不可再分发，则留本地候选/引用，不放入发布集合。
+
+## 校验与保存
+- VERSION按patch修正细节、minor兼容扩展、major不兼容变更。更新后刷新第一方清单：`python skills/wava-work/scripts/bundle_registry.py --repo . refresh --name wava-work`。
+- 执行`python skills/wava-work/scripts/validate_bundle.py skills/wava-work`、`python skills/wava-work/scripts/bundle_registry.py --repo . verify`及相关测试；它们不代替真实任务评估。
+- 导出新源码目录：`python skills/wava-work/scripts/export_repository.py --skill-root skills/wava-work --repo-root . --destination <新目录>`；不自动安装或推送。
+- 按已有授权保存/发布。默认维护走分支/PR，明确授权可直接发布；保留回退基线，核对远端文件与目标客户端。未发布不称已有release，源码发布不称本机安装。
