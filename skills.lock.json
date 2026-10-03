@@ -6,12 +6,12 @@
       "path": "skills/wava-work",
       "role": "orchestrator",
       "when": "个人工作流入口、任务协调、维护和进化",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "sha256": {
         "SKILL.md": "5815a0443a45fb73c9eb28dabf4b53fbdc478cb966bb8bbcda42672c4de6beb2",
-        "VERSION": "e2f7bb608ebc9e24092ffcb796ad0aa83f0015afe23635f017df52273150f00d",
+        "VERSION": "520a19075780a38b440395e2c70e20d7cddd96b8c2e2c2403b265cbb74a1b333",
         "agents/openai.yaml": "c75415ba0ead547ed75b6f0b9e5007f44ad6e869e73256aeb1ad6e0ebb9446c9",
-        "references/bundle.md": "e76c3ee0d0d65b2476fee5b2937af68c52a31ce7d02ceea58c53542a7f7ab0f7",
+        "references/bundle.md": "c4a31cfd6ec806487127198b40328caf5c129397022a915453c90247844fdd0c",
         "references/charts.md": "0c7b274ad7225fd3f02be5965bbe29f79da73601b39eb566541ea5032c46d83c",
         "references/code.md": "a2fb8f60be71b4e90846f9e8f336e2718527ae911f18d35acb4b7b1a6e3c00ca",
         "references/documents.md": "3df6ec4bbb017a2fa5012764028eb04472dc9785f3cbfd7c3468b0f044d02048",
@@ -23,7 +23,7 @@
         "references/ui.md": "b85a3a3ec1add0329eff9355fe6509d2f8b09a809337d8a8a9fdc59b9c65c722",
         "references/video.md": "2011fc17d813abc59d6dd79c079ad7bc2f4945432545b552d4740763e13969c9",
         "scripts/bundle_registry.py": "850df605dd5e820e1fe72fb80d5220a81916c80bfb4a8d9c6fd0f1b9c0796557",
-        "scripts/export_repository.py": "e6c0f2ad485b987f3f5105dc85da881e08834a1eae6b4f3381324451f16b2813",
+        "scripts/export_repository.py": "1b0fbc57b1f12681bb2bc4dcdeb203cfe07b3f442e92897bbba19bea641f8120",
         "scripts/probe_environment.py": "23c37e0a745c9153cf4af9752e41054d842cd3050f7c455244ef39a5b39fdfb1",
         "scripts/validate_bundle.py": "76b0651840e1a8169b27a27d6a61450fa84cb0fb394713c3f73817c11fcd2b65"
       }

@@ -36,6 +36,7 @@ class BundleTests(unittest.TestCase):
                 self.assertTrue((destination / "skills" / name / "SKILL.md").is_file())
             self.assertTrue((destination / "skills/ponytail/LICENSE").is_file())
             self.assertTrue((destination / "scripts/install.py").is_file())
+            self.assertTrue((destination / "releases/v0.4.3.md").is_file())
             run = subprocess.run([sys.executable, str(destination / "scripts/install.py"), "--dry-run"], capture_output=True)
             self.assertEqual(run.returncode, 0, run.stderr.decode())
             self.assertIn(b"DietrichGebert/ponytail", run.stdout)

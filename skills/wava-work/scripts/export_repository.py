@@ -28,7 +28,7 @@ def export(skill, destination, ponytail=None, repo_root=None):
     for name in ("README.md", "LICENSE", "THIRD_PARTY.md", "skills.lock.json", ".gitignore"):
         if (repo_root / name).is_file():
             shutil.copyfile(repo_root / name, destination / name)
-    for name in ("tests", "evals", ".github", "scripts"):
+    for name in ("tests", "evals", ".github", "scripts", "releases"):
         if (repo_root / name).is_dir():
             shutil.copytree(repo_root / name, destination / name,
                 ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))

@@ -31,3 +31,5 @@
 - 执行`python skills/wava-work/scripts/validate_bundle.py skills/wava-work`、`python skills/wava-work/scripts/bundle_registry.py --repo . verify`及相关测试；它们不代替真实任务评估。
 - 导出新源码目录：`python skills/wava-work/scripts/export_repository.py --skill-root skills/wava-work --repo-root . --destination <新目录>`；不自动安装或推送。
 - 按已有授权保存/发布。默认维护走分支/PR，明确授权可直接发布；保留回退基线，核对远端文件与目标客户端。未发布不称已有release，源码发布不称本机安装。
+
+- 稳定发布使用VERSION对应的附注tag `v<版本>`与同名GitHub Release；先通过校验并准备releases/v<版本>.md，发布后核对tag指向、Release状态与说明。已发布版本不移动tag或重写历史，修正发新版本。维护main、发布稳定tag、客户端安装分别确认。

@@ -1,5 +1,8 @@
 # Wava Work
 
+[![Latest release](https://img.shields.io/github/v/release/wavachao/wava-work)](https://github.com/wavachao/wava-work/releases/latest)
+[![Validation](https://github.com/wavachao/wava-work/actions/workflows/validate.yml/badge.svg)](https://github.com/wavachao/wava-work/actions/workflows/validate.yml)
+
 面向 Codex、Claude Code 等 AI 编程助手的模块化个人工作技能，覆盖软件开发、界面设计、文档排版、数据可视化、演示文稿与视频制作。它将工作偏好、任务流程和技能接入规则拆分为独立模块，由任务入口按需加载，并通过可验证、可回退的维护流程持续改进。
 
 ## 功能与设计
@@ -23,11 +26,11 @@
 
 ### 推荐安装
 
-克隆仓库后运行统一安装入口。默认安装到 Codex 用户目录，同时从 Ponytail 上游获取最新核心技能。
+稳定版与更新说明见 [GitHub Releases](https://github.com/wavachao/wava-work/releases/latest)。以下示例固定 Wava Work v0.4.3，默认安装到 Codex 用户目录，同时从 Ponytail 上游获取最新核心技能。
 
 ```bash
-git clone https://github.com/wavachao/wava-work.git
-cd wava-work
+git clone --branch v0.4.3 --depth 1 https://github.com/wavachao/wava-work.git wava-work-v0.4.3
+cd wava-work-v0.4.3
 python scripts/install.py -y
 ```
 
@@ -97,6 +100,7 @@ python scripts/install.py --ponytail bundled -y
 | `skills/ponytail/` | 保留原始许可证和来源记录的第三方快照 |
 | `scripts/install.py` | 技能集合安装与 Ponytail 版本选择 |
 | `skills.lock.json` | 仓库技能清单、来源版本及文件完整性记录 |
+| `releases/` | 稳定版本发布说明 |
 | `tests/` | 脚本与技能包回归测试 |
 | `evals/` | 行为评估场景及脱敏维护记录 |
 
@@ -108,12 +112,21 @@ python scripts/install.py --ponytail bundled -y
 
 技能更新需要 agent 实际执行，并具备源码访问及保存权限。公开源码、客户端安装和平台技能保存是独立步骤；本项目不提供后台训练或跨设备自动更新服务。
 
-更新仓库后，重新运行安装入口，可安装新增技能并重新获取最新 Ponytail：
+查看 [最新 Release](https://github.com/wavachao/wava-work/releases/latest) 的版本和更新说明，再按目标 tag 检出源码并重新安装；完整安装入口会包含新增技能，并重新获取最新 Ponytail。固定 tag 的安装目录处于 detached HEAD，不使用 `git pull` 更新。
 
 ```bash
-git pull --ff-only
+git fetch --tags origin
+git switch --detach v0.4.3  # 换成目标 Release 的 tag
 python scripts/install.py -y
 ```
+
+`main` 用于持续开发。直接通过 Skills CLI 安装仓库入口会跟踪默认分支；需要稳定、可复现的 Wava Work 版本时使用上述 tag 安装方式。
+
+## 稳定发布
+
+VERSION、Git tag 与 Release 一致，例如 `0.4.3` / `v0.4.3` / `Wava Work v0.4.3`。发布说明存放于 `releases/`，说明变化、兼容性、验证范围和安装/回退方法。已发布 tag 和内容保持不变；修正使用新版本。
+
+更新 VERSION、清单及发布说明并推送到 main 后，发布工作流执行校验，通过后创建附注 tag 和 GitHub Release；支持在 Actions 手动重跑。只有确认 Release 已公开且 tag 指向正确提交，才报告发布完成。默认最新 Ponytail 与固定 Wava Work 版本独立管理。
 
 ## 提交规范
 
